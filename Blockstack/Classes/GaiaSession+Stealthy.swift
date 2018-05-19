@@ -8,7 +8,7 @@
 import Foundation
 
 public extension GaiaSession {
-    func getFileRaw(path: String, completion: @escaping (Any?, GaiaError?) -> Void) {
+    func getRawFile(path: String, completion: @escaping (Any?, GaiaError?) -> Void) {
         guard let config = self.config else {
             return
         }
@@ -28,3 +28,4 @@ public extension GaiaSession {
         task.resume()
     }
 }
+

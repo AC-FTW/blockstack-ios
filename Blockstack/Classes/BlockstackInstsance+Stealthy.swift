@@ -12,7 +12,7 @@ public extension BlockstackInstance {
     // This method conforms to the original Blockstack Javascript API behavior, returning a
     // string or buffer and not trying to convert it to JSON.
     //
-    @objc public func getFileRaw(path: String, completion: @escaping (Any?, Error?) -> Void) {
+    @objc public func getRawFile(path: String, completion: @escaping (Any?, Error?) -> Void) {
         let translatedCompletion: (Any?, GaiaError?) -> Void = { value, error in
             completion(value, error)
         }
@@ -24,7 +24,7 @@ public extension BlockstackInstance {
                 return
             }
 
-            Gaia.sharedSession().getFileRaw(path: path, completion: translatedCompletion)
+            Gaia.sharedSession().getRawFile(path: path, completion: translatedCompletion)
         }
     }
 
