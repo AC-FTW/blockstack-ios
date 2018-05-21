@@ -74,4 +74,28 @@ open class EncryptionJS {
         return cipherObjectJSONString!.toString()
     }
 
+
+    // Experiment calling encryptContent / decryptContent:
+    //
+    public func encryptContent(content: String) -> String? {
+        guard let context = context else {
+            print("JSContext not found.")
+            return nil
+        }
+        
+        // TODO: implement options argument to encryptContent
+        let cipherObjectJSONString = context.evaluateScript("encryptContent('\(content)')")
+        return cipherObjectJSONString!.toString()
+    }
+
+    public func decryptContent(content: String) -> String? {
+        guard let context = context else {
+            print("JSContext not found.")
+            return nil
+        }
+        
+        // TODO: implement options argument to decryptContent 
+        let decryptedContent = context.evaluateScript("decryptContent('\(content)')")
+        return decryptContent!.toString()
+    }
 }

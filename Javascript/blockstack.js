@@ -29662,6 +29662,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.GaiaHubConfig = exports.BLOCKSTACK_GAIA_HUB_LABEL = exports.uploadToGaiaHub = exports.connectToGaiaHub = undefined;
 exports.getUserAppFileUrl = getUserAppFileUrl;
+exports.encryptContent = encryptContent;
+exports.decryptContent = decryptContent;
 exports.getFile = getFile;
 exports.putFile = putFile;
 exports.getAppBucketUrl = getAppBucketUrl;
@@ -29708,6 +29710,46 @@ function getUserAppFileUrl(path, username, appOrigin) {
       return null;
     }
   });
+}
+
+/**
+ * Encrypts the data provided with the transit public key.
+ * @param {String|Buffer} content - data to encrypt
+ * @param {Object} [options=null] - options object
+ * @param {String} options.privateKey - the hex string of the ECDSA private
+ * key to use for decryption. If not provided, will use user's appPrivateKey.
+ * @return {String} Stringified ciphertext object
+ */
+function encryptContent(content, options) {
+  var defaults = { privateKey: null };
+  var opt = Object.assign({}, defaults, options);
+  if (!opt.privateKey) {
+    opt.privateKey = (0, _auth.loadUserData)().appPrivateKey;
+  }
+
+  var publicKey = (0, _keys.getPublicKeyFromPrivate)(opt.privateKey);
+  var cipherObject = (0, _encryption.encryptECIES)(publicKey, content);
+  return JSON.stringify(cipherObject);
+}
+
+/**
+ * Decrypts data encrypted with `encryptContent` with the
+ * transit private key.
+ * @param {String|Buffer} content - encrypted content.
+ * @param {Object} [options=null] - options object
+ * @param {String} options.privateKey - the hex string of the ECDSA private
+ * key to use for decryption. If not provided, will use user's appPrivateKey.
+ * @return {String|Buffer} decrypted content.
+ */
+function decryptContent(content, options) {
+  var defaults = { privateKey: null };
+  var opt = Object.assign({}, defaults, options);
+  if (!opt.privateKey) {
+    opt.privateKey = (0, _auth.loadUserData)().appPrivateKey;
+  }
+
+  var cipherObject = JSON.parse(content);
+  return (0, _encryption.decryptECIES)(opt.privateKey, cipherObject);
 }
 
 /**
