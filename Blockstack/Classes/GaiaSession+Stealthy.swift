@@ -27,5 +27,17 @@ public extension GaiaSession {
         }
         task.resume()
     }
+    
+    func putRawFile(path: String, stringContent: String, completion: @escaping (String?, GaiaError?) -> Void) {
+        let contentType = "application/json"
+        
+        print(stringContent as Any)
+        
+        uploadToGaiaHub(path: path,
+                        content: stringContent,
+                        config: self.config!,
+                        contentType: contentType,
+                        completion: completion)
+    }
 }
 

@@ -39,12 +39,6 @@ public enum BlockstackConstants {
         let _manifestURI = manifestURI ?? URL(string: "/manifest.json", relativeTo: appDomain)
         let appBundleID = "AppBundleID"
         
-//        print("transitKey", transitKey)
-//        print("redirectURLScheme", redirectURI)
-//        print("manifestURI", _manifestURI!.absoluteString)
-//        print("appDomain", appDomain)
-//        print("appBundleID", appBundleID)
-        
         let authRequest: String = Auth.makeRequest(transitPrivateKey: transitKey,
                                                    redirectURLScheme: redirectURI,
                                                    manifestURI: _manifestURI!,
