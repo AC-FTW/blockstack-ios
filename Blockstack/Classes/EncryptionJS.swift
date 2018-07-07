@@ -96,6 +96,6 @@ open class EncryptionJS {
         
         // TODO: implement options argument to decryptContent 
         let decryptedContent = context.evaluateScript("decryptContent('\(content)')")
-        return decryptContent!.toString()
+        return decryptedContent!.toString()
     }
 }
