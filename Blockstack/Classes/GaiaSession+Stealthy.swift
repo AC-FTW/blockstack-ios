@@ -42,5 +42,10 @@ public extension GaiaSession {
                         contentType: contentType,
                         completion: completion)
     }
+
+    func resetAndClearConfig() {
+        resetConfig()
+        self.config = nil
+    }
 }
 

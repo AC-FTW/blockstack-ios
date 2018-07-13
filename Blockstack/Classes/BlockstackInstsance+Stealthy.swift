@@ -51,4 +51,12 @@ public extension BlockstackInstance {
         let publicKey = Keys.getPublicKeyFromPrivate(aPrivateKey);
         return publicKey;
     }
+
+    // Resets GAIA session in addition to signing out. Prevents nasty bug where sign out A, sign in B, results in writing to
+    // A's GAIA by B.
+    //
+    @objc public func signOutBlockstackAndGaia() {
+        signOut()
+        Gaia.sharedSession().resetAndClearConfig()
+    }
 }
