@@ -15,7 +15,7 @@ public extension GaiaSession {
 
         var fullReadURLString = "\(config.URLPrefix!)\(config.address!)/\(path)"
         if (workaroundPath != "") {
-            fullReadURLString = "\(workaroundPath)/\(path)"
+            fullReadURLString = "\(workaroundPath)\(path)"
         }
         let fullReadURL = URL(string: fullReadURLString)
 
