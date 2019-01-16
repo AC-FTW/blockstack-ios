@@ -65,7 +65,7 @@ public enum BlockstackConstants {
                      completion: @escaping SFAuthenticationSession.CompletionHandler) {
         
         var urlComps = URLComponents(string: BlockstackConstants.BrowserWebAppAuthEndpoint)!
-        urlComps.queryItems = [URLQueryItem(name: "authRequest", value: authRequest)]
+        urlComps.queryItems = [URLQueryItem(name: "authRequest", value: authRequest), URLQueryItem(name: "client", value: "ios_secure")]
         let url = urlComps.url!
         
         var responded = false
