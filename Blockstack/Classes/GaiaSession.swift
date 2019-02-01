@@ -60,7 +60,15 @@ public class GaiaSession {
         let hubURL = userData?.hubURL ?? BlockstackConstants.DefaultGaiaHubURL
         let appPrivateKey = userData?.privateKey
         
-        connectToHub(hubURL: hubURL, challengeSignerHex: appPrivateKey!, completion: completion)
+        // Check for nil here and complete with nil to prevent crashes on read/write calls after sign out has 
+        // happened.
+        //
+        if (userData == nil || hubURL == nil || appPrivateKey == nil) {
+            print("Prevented connection to Gaia hub because userData is nil.")
+            completion(nil)
+        } else {
+            connectToHub(hubURL: hubURL, challengeSignerHex: appPrivateKey!, completion: completion)
+        }
     }
     
     func connectToHub(hubURL: String, challengeSignerHex: String, completion: @escaping (GaiaError?) -> Void) {
