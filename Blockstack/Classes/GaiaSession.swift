@@ -65,7 +65,7 @@ public class GaiaSession {
         //
         if (userData == nil || hubURL == nil || appPrivateKey == nil) {
             print("Prevented connection to Gaia hub because userData is nil.")
-            completion(nil)
+            completion(GaiaError.connectionError)
         } else {
             connectToHub(hubURL: hubURL, challengeSignerHex: appPrivateKey!, completion: completion)
         }
